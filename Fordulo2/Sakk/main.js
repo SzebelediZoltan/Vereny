@@ -20,6 +20,11 @@ let sakkTabla = [
 //Az első szám a bábú típusát jelzi a masodik pedig, hogy kinek a bábuja
 // sakkTabla[0][0] == "1 1", ebben az esetben az első játékoshoz tartozó parasztbábu a bal felső sarokban helyezkedik el
 
+function babu(tipus, szin) {
+    this.tipus = tipus
+    this.szin = szin
+} // Babu objektum alap
+
 function szinGeneralo(szinSzam) {
     switch (szinSzam) {
         case "1":
@@ -33,7 +38,7 @@ function szinGeneralo(szinSzam) {
     }
 } //Kapunk belole egy színt a megadott nyers számból
 
-function babuGeneralo(babuSzam) {
+function tipusGeneralo(babuSzam) {
     switch (babuSzam) {
         case "1":
             return "paraszt"
@@ -46,23 +51,30 @@ function babuGeneralo(babuSzam) {
 function tablaFrissites(sakkTabla) {
     let generaltTabla = []
     let generaltSor = []
-    let szinSzam;
+    let szinSzam
+    let tipusSzam
 
     sakkTabla.forEach(sor => {
         sor.forEach(mezo => {
-            babuSzam = mezo.split(" ")[0]
+            tipusSzam = mezo.split(" ")[0]
             szinSzam = mezo.split(" ")[1]
-            generaltSor.push(babuGeneralo(babuSzam))
-            generaltSor.push(szinGeneralo(szinSzam))
+            generaltSor.push(new babu(tipusGeneralo(tipusSzam), szinGeneralo(szinSzam)))
         })
         generaltTabla.push(generaltSor)
         generaltSor = []
     })
 
-    return generaltTabla
+    rendereles(generaltTabla)
 } //Legeneral egy nehezebben kezelhető viszont egy sokkal könnyebben le rendelelhető táblát
 
-console.log(tablaFrissites(sakkTabla));
+
+
+function rendereles(tabla) {
+        
+}
+
+
+
 
 
 
