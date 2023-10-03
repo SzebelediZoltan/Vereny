@@ -37,11 +37,31 @@ body {
 
 tr, td{
     background-color: chocolate;
-    border: 3px solid black;
+    /* border: 3px solid black; */
     width: 75px;
     height: 75px;
 }
 
 tr:nth-child(2n) :nth-child(2n), tr:nth-child(2n+1) :nth-child(2n+1) {
     background-color: chartreuse;
+}
+
+.player {
+
+}
+
+.nev {
+
+}
+
+.pont {
+
+}
+
+.babu {
+
+}
+
+.kepessegek {
+
 }
