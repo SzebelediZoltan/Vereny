@@ -36,18 +36,18 @@ body {
 }
 
 tr, td{
-    background-color: chocolate;
+    background-color: white;
     /* border: 3px solid black; */
-    height: calc(100vh/13);
-    width: calc(100vh/ 13);
+    width: 75px;
+    height: 75px;
 }
 
-tr:nth-child(2n) :nth-child(2n), tr:nth-child(2n+1) :nth-child(2n+1) {
-    background-color: chartreuse;
+tr:nth-child(2n) >:nth-child(2n), tr:nth-child(2n+1) >:nth-child(2n+1) {
+    background-color: black;
 }
 
 .player {
-
+    
 }
 
 .nev {
@@ -64,4 +64,10 @@ tr:nth-child(2n) :nth-child(2n), tr:nth-child(2n+1) :nth-child(2n+1) {
 
 .kepessegek {
 
+}
+
+.babu {
+    background-color: transparent;
+    width: 75px;
+    height: 75px;
 }
