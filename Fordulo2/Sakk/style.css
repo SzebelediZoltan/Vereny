@@ -22,6 +22,11 @@ body {
     margin: auto;
 }
 
+table {
+    border-collapse: collapse;
+    border: 5px solid black;
+}
+
 #info {
     grid-template-areas: "b";
     background-color: brown;
@@ -42,14 +47,14 @@ body {
 }
 
 td{
-    background-color: rgb(222, 222, 222);
+    background-color: rgb(255, 255, 255);
     /* border: 3px solid black; */
-    width: calc(100vh / 13);
-    height: calc(100vh / 13);
+    width: calc(100vh / 12.7);
+    height: calc(100vh / 12.7);
 }
 
 tr:nth-child(2n) >:nth-child(2n), tr:nth-child(2n+1) >:nth-child(2n+1) {
-    background-color: rgb(33, 33, 33);
+    background-color: rgb(3, 3, 3);
 }
 
 /* .player {
@@ -88,5 +93,13 @@ tr:nth-child(2n) >:nth-child(2n), tr:nth-child(2n+1) >:nth-child(2n+1) {
     margin: auto;
     height: 100%;
     width: 100%;
-    font-size: 3.5vw;
+    font-size: 3.2em;
+}
+
+.fekete {
+    color: rgb(58, 58, 58);
+}
+
+.feher {
+    color: rgb(199, 199, 199);
 }

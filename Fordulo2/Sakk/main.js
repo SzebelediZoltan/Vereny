@@ -98,6 +98,7 @@ function rendereles(tabla) {
                 i.classList.add("fa-solid")
                 i.classList.add("fa-chess-" + babu.tipus)
                 i.classList.add("babu")
+                i.classList.add(babu.szin)
                 td.appendChild(i)
             }
             tr.appendChild(td)
