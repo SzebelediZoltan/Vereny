@@ -8,7 +8,7 @@ const alapTabla = [
     ["1 2","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
-    ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
+    ["0 0","0 0","2 2","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
@@ -45,6 +45,7 @@ function babu(tipus, szin) {
     this.tipus = tipus
     this.szin = szin
     this.jeloles = ""
+    this.irany = ""
 } // Babu objektum alap
 
 function szinGeneralo(szinSzam) {
@@ -85,6 +86,16 @@ function tipusGeneralo(babuSzam) {
     }
 } //Kapunk belőle egy bábu típust a megadott nyers számból
 
+function parasztIranyInit(sor) {
+    sor.forEach(mezo => {
+        if (mezo.tipus == "pawn" && mezo.szin == "fekete") {
+            mezo.irany = "le"
+        } else if (mezo.tipus == "pawn" && mezo.szin == "feher") {
+            mezo.irany = "fel"
+        }
+    });
+}
+
 function init(sakkTabla) {
     let generaltSor = []
     let szinSzam
@@ -96,6 +107,7 @@ function init(sakkTabla) {
             szinSzam = mezo.split(" ")[1]
             generaltSor.push(new babu(tipusGeneralo(tipusSzam), szinGeneralo(szinSzam)))
         })
+        parasztIranyInit(generaltSor)
         generaltTabla.push(generaltSor)
         generaltSor = []
     })
@@ -105,6 +117,7 @@ function init(sakkTabla) {
 } //Legenerál egy nekünk megfelelő táblát a nyers táblából
 
 function rendereles(tabla) {
+    console.log("renderelés");
     tablaHTML.innerHTML = ""
     tabla.forEach(sor => {
         const tr = document.createElement("tr")
@@ -153,41 +166,152 @@ function lehetsegesLepes(y, x, jatekosSzin) {
 } //Leellenőrzi hogy az éppeni játékos tud-e lépni
 
 function parasztJeloles(y, x, jatekosSzin) {
-    for(let i = y-1; i > y-4; i-=1) {
-        if (generaltTabla[i][x] && generaltTabla[i][x].szin == "") {
-            generaltTabla[i][x].jeloles = "lehetseges"
+    if (generaltTabla[y][x].irany == "fel") {
+        for (let i = y-1; i > y-4; i-=1) {
+            if (i >= 0 && generaltTabla[i][x].szin == "") {
+                generaltTabla[i][x].jeloles = "lehetseges"
+            }
         }
     
-    if (generaltTabla[y-1][x+1] && generaltTabla[y-1][x+1].szin != jatekosSzin && generaltTabla[y-1][x+1].szin != "") {
-        generaltTabla[y-1][x+1].jeloles = "kiutheto"
+        let offsets = [1, -1]
+        offsets.forEach(offset => {
+            if (y-1 >= 0 && x+offset >= 0 && x+offset <= 7) {
+                let szin = generaltTabla[y-1][x+offset].szin
+                if (szin != "" && szin != jatekosSzin)
+                generaltTabla[y-1][x+offset].jeloles = "kiutheto"
+            }
+        })
+    } else {
+        for (let i = y+1; i < y+4; i++) {
+            if (i <= 11 && generaltTabla[i][x].szin == "") {
+                generaltTabla[i][x].jeloles = "lehetseges"
+            }
+        }
+    
+        let offsets = [1, -1]
+        offsets.forEach(offset => {
+            if (y+1 <= 11 && x+offset >= 0 && x+offset <= 7) {
+                let szin = generaltTabla[y+1][x+offset].szin
+                if (szin != "" && szin != jatekosSzin)
+                generaltTabla[y+1][x+offset].jeloles = "kiutheto"
+            }
+        })
+    }
+} //Ez kezeli a hova léphet egy paraszt
+
+function sorbanJeloles(y, x, jatekosSzin) {
+    let i = x-1
+    while(i >= 0 && generaltTabla[y][i].szin == "") {
+        generaltTabla[y][i].jeloles = "lehetseges"
+        i -= 1
+    } 
+    if (!!generaltTabla[y][i] && generaltTabla[y][i].szin != jatekosSzin) {
+        generaltTabla[y][i].jeloles = "kiutheto"
+    }
+    
+    i = x+1
+    while(i <= 7 && generaltTabla[y][i].szin == "") {
+        generaltTabla[y][i].jeloles = "lehetseges"
+        i++;
+    }
+    if (!!generaltTabla[y][i] && generaltTabla[y][i].szin != jatekosSzin) {
+        generaltTabla[y][i].jeloles = "kiutheto"
     }
 
-    if (generaltTabla[y-1][x-1] && generaltTabla[y-1][x-1].szin != jatekosSzin && generaltTabla[y-1][x-1].szin != "") {
-        generaltTabla[y-1][x-1].jeloles = "kiutheto"
+    i = y+1
+    while(i <= 11 && generaltTabla[i][x].szin == "") {
+        generaltTabla[i][x].jeloles = "lehetseges"
+        i++;
     }
+    console.log(!!generaltTabla[i]);
+    if (!!generaltTabla[i] && generaltTabla[i][x].szin != jatekosSzin) {
+        generaltTabla[i][x].jeloles = "kiutheto"
     }
-    rendereles(generaltTabla)
-}
+    
+    i = y-1
+    while(i >= 0 && generaltTabla[i][x].szin == "") {
+        generaltTabla[i][x].jeloles = "lehetseges"
+        i-=1;
+    }
+    if (!!generaltTabla[i] && generaltTabla[i][x].szin != jatekosSzin) {
+        generaltTabla[i][x].jeloles = "kiutheto"
+    }
+} //Ez kezeli ha a bábú egy sorban fel/le tud lépni hogyan kell jelölni
+
+function atlobanJeloles(y, x, jatekosSzin) {
+    let mostY = y+1
+    let mostX = x+1
+    while (mostX <= 7 && mostY <= 11 && generaltTabla[mostY][mostX].szin == "") {
+        generaltTabla[mostY][mostX].jeloles = "lehetseges"
+        mostY++
+        mostX++
+    }
+    if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin != jatekosSzin) {
+        generaltTabla[mostY][mostX].jeloles = "kiutheto"
+    }
+
+    mostY = y-1
+    mostX = x+1
+    while (mostX <= 7 && mostY >= 0 && generaltTabla[mostY][mostX].szin == "") {
+        generaltTabla[mostY][mostX].jeloles = "lehetseges"
+        mostY-= 1
+        mostX++
+    }
+    if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin != jatekosSzin) {
+        generaltTabla[mostY][mostX].jeloles = "kiutheto"
+    }
+
+    mostY = y-1
+    mostX = x-1
+    while (mostX >= 0 && mostY >= 0 && generaltTabla[mostY][mostX].szin == "") {
+        generaltTabla[mostY][mostX].jeloles = "lehetseges"
+        mostY-= 1
+        mostX-= 1
+    }
+    if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin != jatekosSzin) {
+        generaltTabla[mostY][mostX].jeloles = "kiutheto"
+    }
+
+    mostY = y+1
+    mostX = x-1
+    while (mostX >= 0 && mostY <= 11 && generaltTabla[mostY][mostX].szin == "") {
+        generaltTabla[mostY][mostX].jeloles = "lehetseges"
+        mostY++
+        mostX-= 1
+    }
+    if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin != jatekosSzin) {
+        generaltTabla[mostY][mostX].jeloles = "kiutheto"
+    }
+} //Ez kezeli ha a bábú átlóban tud lépni hogyan kell jelölni
 
 function bastyaJeloles(y, x, jatekosSzin) {
-    
-}
+    sorbanJeloles(y, x, jatekosSzin)
+} //Ez kezeli a hova léphet egy bastya
 
 function futoJeloles(y, x, jatekosSzin) {
-    
-}
+    atlobanJeloles(y, x, jatekosSzin)
+} //Ez kezeli a hova léphet egy futo
 
 function loJeloles(y, x, jatekosSzin) {
     
-}
+} //Ez kezeli a hova léphet egy lo
 
 function kiralyJeloles(y, x, jatekosSzin) {
-    
-}
+    for (let mostY = y-2; mostY <= y+2; mostY++) {
+        for (let mostX = x-2; mostX <= x+2; mostX++) {
+            if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin == "") {
+                generaltTabla[mostY][mostX].jeloles = "lehetseges"
+            } else if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin != jatekosSzin) {
+                generaltTabla[mostY][mostX].jeloles = "kiutheto"
+            }
+        }
+    }
+} //Ez kezeli a hova léphet egy kiraly
 
 function kiralynoJeloles(y, x, jatekosSzin) {
-    
-}
+    sorbanJeloles(y, x, jatekosSzin)
+    atlobanJeloles(y, x, jatekosSzin)
+} //Ez kezeli a hova léphet egy kiralyno
 
 function jeloles(y, x, jatekosSzin) {
     switch (generaltTabla[y][x].tipus) {
@@ -212,7 +336,7 @@ function jeloles(y, x, jatekosSzin) {
         default:
             break;
     }
-
+    
     elozo = generaltTabla[y][x]
     elozoY = y
     elozoX = x
