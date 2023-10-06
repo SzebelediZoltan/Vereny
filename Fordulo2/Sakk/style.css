@@ -49,12 +49,21 @@ table {
 td{
     background-color: rgb(255, 255, 255);
     /* border: 3px solid black; */
-    width: calc(100vh / 12.7);
-    height: calc(100vh / 12.7);
+    width: calc(100vh / 13);
+    height: calc(100vh / 13);
+    border: 2px solid black;
+}
+
+td:hover {
+    background-color: rgba(0, 255, 30, 0.742);
 }
 
 tr:nth-child(2n) >:nth-child(2n), tr:nth-child(2n+1) >:nth-child(2n+1) {
     background-color: rgb(3, 3, 3);
+}
+
+tr:nth-child(2n) >:nth-child(2n):hover, tr:nth-child(2n+1) >:nth-child(2n+1):hover {
+    background-color: rgba(0, 255, 30, 0.742);
 }
 
 /* .player {
@@ -88,7 +97,6 @@ tr:nth-child(2n) >:nth-child(2n), tr:nth-child(2n+1) >:nth-child(2n+1) {
 }
 
 .babu {
-    display: flex;
     text-align: center;
     margin: auto;
     height: 100%;
