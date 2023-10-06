@@ -1,7 +1,7 @@
 const tablaHTML = document.querySelector("table")
 
 const alapTabla = [
-    ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
+    ["2 1","3 1","4 1","6 1","5 1","4 1","3 1","2 1"],
     ["1 1","1 1","1 1","1 1","1 1","1 1","1 1","1 1"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
@@ -12,7 +12,7 @@ const alapTabla = [
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["1 2","1 2","1 2","1 2","1 2","1 2","1 2","1 2"],
-    ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"]
+    ["2 2","3 2","4 2","5 2","6 2","4 2","3 2","2 2"]
 ];
 
 let generaltTabla = []
@@ -39,16 +39,31 @@ function szinGeneralo(szinSzam) {
             return "feher"
 
         default:
-            return "ures"
+            return ""
     }
 } //Kapunk belole egy színt a megadott nyers számból
 
 function tipusGeneralo(babuSzam) {
     switch (babuSzam) {
         case "1":
-            return "paraszt"
+            return "pawn"
             
-            default:
+        case "2":
+            return "rook"
+
+        case "3":
+            return "knight"
+
+        case "4":
+            return "bishop"
+
+        case "5":
+            return "queen"
+
+        case "6":
+            return "king"
+
+        default:
             return ""
     }
 } //Kapunk belole egy bábu típust a megadott nyers számból
@@ -68,15 +83,23 @@ function init(sakkTabla) {
         generaltSor = []
     })
 
+    console.log(alapTabla);
+    console.log(generaltTabla);
     rendereles(generaltTabla)
 } //Legenerál egy nekünk megfelelő táblát a nyers táblából
-
 
 function rendereles(tabla) {
     tabla.forEach(sor => {
         const tr = document.createElement("tr")
-        sor.forEach(mezo => {
+        sor.forEach(babu => {
             const td = document.createElement("td")
+            if (babu.szin != "") {
+                const i = document.createElement("i")
+                i.classList.add("fa-solid")
+                i.classList.add("fa-chess-" + babu.tipus)
+                i.classList.add("babu")
+                td.appendChild(i)
+            }
             tr.appendChild(td)
         })
         tablaHTML.appendChild(tr)

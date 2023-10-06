@@ -1,3 +1,9 @@
+:root {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -35,15 +41,15 @@ body {
     background-color: khaki;
 }
 
-tr, td{
-    background-color: white;
+td{
+    background-color: rgb(222, 222, 222);
     /* border: 3px solid black; */
-    width: 75px;
-    height: 75px;
+    width: calc(100vh / 13);
+    height: calc(100vh / 13);
 }
 
 tr:nth-child(2n) >:nth-child(2n), tr:nth-child(2n+1) >:nth-child(2n+1) {
-    background-color: black;
+    background-color: rgb(33, 33, 33);
 }
 
 .player {
@@ -67,7 +73,10 @@ tr:nth-child(2n) >:nth-child(2n), tr:nth-child(2n+1) >:nth-child(2n+1) {
 }
 
 .babu {
-    background-color: transparent;
-    width: 75px;
-    height: 75px;
+    display: flex;
+    text-align: center;
+    margin: auto;
+    height: 100%;
+    width: 100%;
+    font-size: 3.5vw;
 }
