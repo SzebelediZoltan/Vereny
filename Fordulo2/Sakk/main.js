@@ -1,4 +1,6 @@
-let sakkTabla = [
+const tablaHTML = document.querySelector("table")
+
+const alapTabla = [
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["1 1","1 1","1 1","1 1","1 1","1 1","1 1","1 1"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
@@ -12,6 +14,9 @@ let sakkTabla = [
     ["1 2","1 2","1 2","1 2","1 2","1 2","1 2","1 2"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"]
 ];
+
+let generaltTabla = []
+init(alapTabla)
 
 // Az első indexe a mátrixnak az y tengelyen való elhelyezkedését jelzi
 // Az első indexe a mátrixnak az x tengelyen való elhelyezkedését jelzi
@@ -42,14 +47,13 @@ function tipusGeneralo(babuSzam) {
     switch (babuSzam) {
         case "1":
             return "paraszt"
-    
-        default:
+            
+            default:
             return ""
     }
-} //Kapunk belole egy babu típust a megadott nyers számból
+} //Kapunk belole egy bábu típust a megadott nyers számból
 
-function tablaFrissites(sakkTabla) {
-    let generaltTabla = []
+function init(sakkTabla) {
     let generaltSor = []
     let szinSzam
     let tipusSzam
@@ -65,13 +69,19 @@ function tablaFrissites(sakkTabla) {
     })
 
     rendereles(generaltTabla)
-} //Legeneral egy nehezebben kezelhető viszont egy sokkal könnyebben le rendelelhető táblát
-
+} //Legenerál egy nekünk megfelelő táblát a nyers táblából
 
 
 function rendereles(tabla) {
-        
-}
+    tabla.forEach(sor => {
+        const tr = document.createElement("tr")
+        sor.forEach(mezo => {
+            const td = document.createElement("td")
+            tr.appendChild(td)
+        })
+        tablaHTML.appendChild(tr)
+    })
+} //Lerendereli a táblát a DOM-ba
 
 
 
