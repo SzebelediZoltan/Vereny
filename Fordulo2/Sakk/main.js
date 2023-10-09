@@ -197,7 +197,7 @@ function parasztJeloles(y, x, jatekosSzin) {
             }
         })
     }
-} //Ez kezeli a hova léphet egy paraszt
+} //Ez kezeli hova léphet egy paraszt
 
 function sorbanJeloles(y, x, jatekosSzin) {
     let i = x-1
@@ -223,7 +223,7 @@ function sorbanJeloles(y, x, jatekosSzin) {
         generaltTabla[i][x].jeloles = "lehetseges"
         i++;
     }
-    console.log(!!generaltTabla[i]);
+
     if (!!generaltTabla[i] && generaltTabla[i][x].szin != jatekosSzin) {
         generaltTabla[i][x].jeloles = "kiutheto"
     }
@@ -286,15 +286,15 @@ function atlobanJeloles(y, x, jatekosSzin) {
 
 function bastyaJeloles(y, x, jatekosSzin) {
     sorbanJeloles(y, x, jatekosSzin)
-} //Ez kezeli a hova léphet egy bastya
+} //Ez kezeli hova léphet egy bastya
 
 function futoJeloles(y, x, jatekosSzin) {
     atlobanJeloles(y, x, jatekosSzin)
-} //Ez kezeli a hova léphet egy futo
+} //Ez kezeli hova léphet egy futo
 
 function loJeloles(y, x, jatekosSzin) {
     
-} //Ez kezeli a hova léphet egy lo
+} //Ez kezeli hova léphet egy lo
 
 function kiralyJeloles(y, x, jatekosSzin) {
     for (let mostY = y-2; mostY <= y+2; mostY++) {
@@ -306,12 +306,12 @@ function kiralyJeloles(y, x, jatekosSzin) {
             }
         }
     }
-} //Ez kezeli a hova léphet egy kiraly
+} //Ez kezeli hova léphet egy kiraly
 
 function kiralynoJeloles(y, x, jatekosSzin) {
     sorbanJeloles(y, x, jatekosSzin)
     atlobanJeloles(y, x, jatekosSzin)
-} //Ez kezeli a hova léphet egy kiralyno
+} //Ez kezeli hova léphet egy kiralyno
 
 function jeloles(y, x, jatekosSzin) {
     switch (generaltTabla[y][x].tipus) {
@@ -336,12 +336,26 @@ function jeloles(y, x, jatekosSzin) {
         default:
             break;
     }
-    
-    elozo = generaltTabla[y][x]
-    elozoY = y
-    elozoX = x
+
+    if (jelolesekszama() != 0) {
+        elozo = generaltTabla[y][x]
+        elozoY = y
+        elozoX = x
+    }
     rendereles(generaltTabla)
 } //Megjelöli mely mezőkre lehet lépni
+
+function jelolesekszama() {
+    dbJeloles = 0
+    generaltTabla.forEach(sor => {
+        sor.forEach(mezo => {
+            if (mezo.jeloles == "lehetseges") {
+                dbJeloles++;
+            }
+        })
+    });
+    return dbJeloles
+}
 
 function jelolesekTorlese() {
     generaltTabla.forEach(sor => {
@@ -375,15 +389,11 @@ function lepes(event) {
 
 
     if (!!elozo && lehetsegesLepes(y, x, jatekosSzin)) {
-        console.log("Atlépés bekövetkezett!!")
         mozgatas(y, x)
         jelolesekTorlese()
         jatekos++;
     } else if (lehetsegesLepes(y, x, jatekosSzin)){
-        console.log("Tud jelölni! Jelölt!!!");
         jeloles(y, x, jatekosSzin)
-    } else {
-        console.log("Nem lehetséges lépés!!");
     }
 
 } //Ez az egész felelős az összes lépésért a jétékban
