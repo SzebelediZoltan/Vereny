@@ -8,7 +8,7 @@ const alapTabla = [
     ["1 2","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
-    ["0 0","0 0","2 2","0 0","0 0","0 0","0 0","0 0"],
+    ["0 0","0 0","6 2","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
@@ -167,10 +167,12 @@ function lehetsegesLepes(y, x, jatekosSzin) {
 
 function parasztJeloles(y, x, jatekosSzin) {
     if (generaltTabla[y][x].irany == "fel") {
-        for (let i = y-1; i > y-4; i-=1) {
+        let i = 0
+        while (i > y-3  && generaltTabla[i][x].szin != "") {
             if (i >= 0 && generaltTabla[i][x].szin == "") {
                 generaltTabla[i][x].jeloles = "lehetseges"
             }
+            i-= 1
         }
     
         let offsets = [1, -1]
@@ -293,19 +295,120 @@ function futoJeloles(y, x, jatekosSzin) {
 } //Ez kezeli hova léphet egy futo
 
 function loJeloles(y, x, jatekosSzin) {
-    
+    let offsetek = [[2, -1], [2, 1], [1, -2], [1, 2], [-2, -1], [-2, 1], [-1, -2], [-1, 2]]
+    offsetek.forEach(offset => {
+        if (!!generaltTabla[y - offset[0]] && !!generaltTabla[y - offset[0]][x-offset[1]] && generaltTabla[y - offset[0]][x-offset[1]].szin != jatekosSzin && generaltTabla[y - offset[0]][x-offset[1]].szin != "") {
+            generaltTabla[y - offset[0]][x-offset[1]].jeloles = "kiutheto"
+        } else if (!!generaltTabla[y - offset[0]] && !!generaltTabla[y - offset[0]][x-offset[1]] && generaltTabla[y - offset[0]][x-offset[1]].szin != jatekosSzin) {
+            generaltTabla[y - offset[0]][x-offset[1]].jeloles = "lehetseges"
+        }
+    });
 } //Ez kezeli hova léphet egy lo
 
-function kiralyJeloles(y, x, jatekosSzin) {
-    for (let mostY = y-2; mostY <= y+2; mostY++) {
-        for (let mostX = x-2; mostX <= x+2; mostX++) {
-            if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin == "") {
-                generaltTabla[mostY][mostX].jeloles = "lehetseges"
-            } else if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin != jatekosSzin) {
-                generaltTabla[mostY][mostX].jeloles = "kiutheto"
-            }
-        }
+function kiralySorban(y, x, jatekosSzin) {
+    let i = x-1
+    while(i >= 0 && generaltTabla[y][i].szin == "" && i > x-2) {
+        generaltTabla[y][i].jeloles = "lehetseges"
+        i -= 1
+    } 
+    if (!!generaltTabla[y][i] && generaltTabla[y][i].szin != jatekosSzin && generaltTabla[y][i].szin != "") {
+        generaltTabla[y][i].jeloles = "kiutheto"
+    } else {
+        generaltTabla[y][i].jeloles = "lehetseges" 
     }
+    
+    i = x+1
+    while(i <= 7 && generaltTabla[y][i].szin == "" && i < x+2) {
+        generaltTabla[y][i].jeloles = "lehetseges"
+        i++;
+    }
+    if (!!generaltTabla[y][i] && generaltTabla[y][i].szin != jatekosSzin && generaltTabla[y][i].szin != "") {
+        generaltTabla[y][i].jeloles = "kiutheto"
+    } else {
+        generaltTabla[y][i].jeloles = "lehetseges" 
+    }
+
+    i = y+1
+    while(i <= 11 && generaltTabla[i][x].szin == "" && i < y+2) {
+        generaltTabla[i][x].jeloles = "lehetseges"
+        i++;
+    }
+
+    if (!!generaltTabla[i] && generaltTabla[i][x].szin != jatekosSzin && generaltTabla[i][x].szin != "") {
+        generaltTabla[i][x].jeloles = "kiutheto"
+    } else {
+        generaltTabla[i][x].jeloles = "lehetseges" 
+    }
+    
+    i = y-1
+    while(i >= 0 && generaltTabla[i][x].szin == "" && i > y-2) {
+        generaltTabla[i][x].jeloles = "lehetseges"
+        i-=1;
+    }
+    if (!!generaltTabla[i] && generaltTabla[i][x].szin != jatekosSzin && generaltTabla[i][x].szin != "") {
+        generaltTabla[i][x].jeloles = "kiutheto"
+    } else {
+        generaltTabla[i][x].jeloles = "lehetseges" 
+    }
+}
+
+function kiralyAtloban(y, x, jatekosSzin) {
+    let mostY = y+1
+    let mostX = x+1
+    while (mostX <= 7 && mostY <= 11 && generaltTabla[mostY][mostX].szin == "" && mostX < x+2 && mostY < y+2) {
+        generaltTabla[mostY][mostX].jeloles = "lehetseges"
+        mostY++
+        mostX++
+    }
+    if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin != jatekosSzin && generaltTabla[mostY][mostX].szin != "") {
+        generaltTabla[mostY][mostX].jeloles = "kiutheto"
+    } else {
+        generaltTabla[mostY][mostX].jeloles = "lehetseges" 
+    }
+
+    mostY = y-1
+    mostX = x+1
+    while (mostX <= 7 && mostY >= 0 && generaltTabla[mostY][mostX].szin == "" && mostX < x+2 && mostY > y-2) {
+        generaltTabla[mostY][mostX].jeloles = "lehetseges"
+        mostY-= 1
+        mostX++
+    }
+    if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin != jatekosSzin && generaltTabla[mostY][mostX].szin != "") {
+        generaltTabla[mostY][mostX].jeloles = "kiutheto"
+    } else {
+        generaltTabla[mostY][mostX].jeloles = "lehetseges" 
+    }
+
+    mostY = y-1
+    mostX = x-1
+    while (mostX >= 0 && mostY >= 0 && generaltTabla[mostY][mostX].szin == "" && mostX > x-2 && mostY > y-2) {
+        generaltTabla[mostY][mostX].jeloles = "lehetseges"
+        mostY-= 1
+        mostX-= 1
+    }
+    if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin != jatekosSzin && generaltTabla[mostY][mostX].szin != "") {
+        generaltTabla[mostY][mostX].jeloles = "kiutheto"
+    } else {
+        generaltTabla[mostY][mostX].jeloles = "lehetseges" 
+    }
+
+    mostY = y+1
+    mostX = x-1
+    while (mostX >= 0 && mostY <= 11 && generaltTabla[mostY][mostX].szin == "" && mostX > x-2 && mostY < y+2) {
+        generaltTabla[mostY][mostX].jeloles = "lehetseges"
+        mostY++
+        mostX-= 1
+    }
+    if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin != jatekosSzin && generaltTabla[mostY][mostX].szin != "") {
+        generaltTabla[mostY][mostX].jeloles = "kiutheto"
+    } else {
+        generaltTabla[mostY][mostX].jeloles = "lehetseges" 
+    }
+}
+
+function kiralyJeloles(y, x, jatekosSzin) {
+    kiralySorban(y, x, jatekosSzin)
+    kiralyAtloban(y, x, jatekosSzin)
 } //Ez kezeli hova léphet egy kiraly
 
 function kiralynoJeloles(y, x, jatekosSzin) {
@@ -349,13 +452,13 @@ function jelolesekszama() {
     dbJeloles = 0
     generaltTabla.forEach(sor => {
         sor.forEach(mezo => {
-            if (mezo.jeloles == "lehetseges") {
+            if (mezo.jeloles == "lehetseges" || mezo.jeloles == "kiutheto") {
                 dbJeloles++;
             }
         })
     });
     return dbJeloles
-}
+} //Visszatér a pontokkal 
 
 function jelolesekTorlese() {
     generaltTabla.forEach(sor => {
@@ -378,7 +481,7 @@ function mozgatas(y, x) {
             jatekos2Pontok += pontozasTabla[kiutottBabu.tipus]
         }
     }
-}
+} //Ez felelős a bábuk mozgatásáért és kezeli a pontokat
 
 function lepes(event) {
     let celpont = event.target.closest("td")
