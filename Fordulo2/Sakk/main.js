@@ -3,6 +3,7 @@ let generaltTabla = []
 let elozo = null
 let elozoY, elozoX
 let nyertes = ""
+let jatekos1, jatekos2, korokSzama
 const nev1HTML = document.querySelector(".nev1")
 const nev2HTML = document.querySelector(".nev2")
 const alapTabla = [
@@ -169,6 +170,9 @@ function parasztIranyInit(sor) {
     });
 }
 
+const kezdesGomb = document.querySelector("#kezdes")
+kezdesGomb.addEventListener("click", init)
+
 function init() {
     let generaltSor = []
     let szinSzam
@@ -185,10 +189,12 @@ function init() {
         generaltSor = []
     })
     
-    const kezdokepernyoHTML = document.querySelector("#kezdokepernyo")
+    
+    jatekos1 = document.querySelector("#jatekos1Inp").value
+    jatekos2 = document.querySelector("#jatekos2Inp").value
+    korokSzama = document.querySelector("#korokszama")
 
-    const jatekos1 = document.querySelector("#jatekos1Inp").value
-    const jatekos2 = document.querySelector("#jatekos2Inp").value
+    document.querySelector("#kezdokepernyo").style.display = "none"
 
     nev1HTML.innerText = jatekos1
     nev2HTML.innerText = jatekos2
