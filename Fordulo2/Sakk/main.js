@@ -3,6 +3,8 @@ let generaltTabla = []
 let elozo = null
 let elozoY, elozoX
 let nyertes = ""
+const jatek = document.querySelector("jatek")
+jatek.style.display = "none"
 const nev1HTML = document.querySelector(".nev1")
 const nev2HTML = document.querySelector(".nev2")
 const alapTabla = [
@@ -169,12 +171,12 @@ function parasztIranyInit(sor) {
     });
 }
 
-function init(sakkTabla) {
+function init() {
     let generaltSor = []
     let szinSzam
     let tipusSzam
 
-    sakkTabla.forEach(sor => {
+    alapTabla.forEach(sor => {
         sor.forEach(mezo => {
             tipusSzam = mezo.split(" ")[0]
             szinSzam = mezo.split(" ")[1]
@@ -194,6 +196,7 @@ function init(sakkTabla) {
     nev2HTML.innerText = jatekos2
 
     kezdokepernyoHTML.style.display = "none"
+    jatek.style.display = "inline"
 
     rendereles(generaltTabla)
     tablaHTML.addEventListener("click", lepes)
@@ -668,3 +671,5 @@ function lepes(event) {
 // -- KEZDŐKÉPERNYŐ --//
 
 const kezdesGomb = document.querySelector("#kezdes")
+
+kezdesGomb.addEventListener("click", init)
