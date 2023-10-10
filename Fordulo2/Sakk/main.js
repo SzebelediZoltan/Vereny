@@ -2,6 +2,7 @@ const tablaHTML = document.querySelector("table")
 let generaltTabla = []
 let elozo = null
 let elozoY, elozoX
+let nyertes = ""
 const alapTabla = [
     ["2 1","3 1","4 1","6 1","5 1","4 1","3 1","2 1"],
     ["1 1","1 1","1 1","1 1","1 1","1 1","1 1","1 1"],
@@ -36,22 +37,69 @@ const pontozasTabla = {
     "queen": 5
 }
 
-// const jatekos1PontokHTML = document.querySelector("")
-// const jatekos2PontokHTML = document.querySelector("")
+const jatekos1PontokHTML = document.querySelector(".pont1")
+const jatekos2PontokHTML = document.querySelector(".pont2")
 
 let jatekos1Pontok = 0
 let jatekos2Pontok = 0
 
 let jatekos = 1 //Itt számolja melyik játékos jön ha osztható 2-vel akkor a fekete ha nem akkor pedig a fehér
 
-// const powerUp1 = document.querySelector("")
-// const powerUp2 = document.querySelector("")
+const feketePowerUp1 = document.querySelector(".ketkorfekete")
+const feketePowerUp2 = document.querySelector(".soklepesfekete")
+
+const feherPowerUp1 = document.querySelector(".ketkorfeher")
+const feherPowerUp2 = document.querySelector(".soklepesfeher")
+
+feketePowerUp1.addEventListener("click", ketszerLepesFekete)
+feketePowerUp2.addEventListener("click", barhogyLepesFekete)
+feherPowerUp1.addEventListener("click", ketszerLepesFeher)
+feherPowerUp2.addEventListener("click", barhogyLepesFeher)
+
+function ketszerLepesFekete() {
+    console.log("jo");
+    let jatekosSzin = jatekos % 2 == 1 ? "feher" : "fekete"
+    if (jatekosSzin == "fekete") {
+        ketszerLepesKapcsolo()
+        feketePowerUp1.style.backgroundColor = "#5d716c"
+        feketePowerUp1.removeEventListener("click", ketszerLepesFekete)
+    }
+}
+
+function barhogyLepesFekete() {
+    console.log("jo");
+    let jatekosSzin = jatekos % 2 == 1 ? "feher" : "fekete"
+    if (jatekosSzin == "fekete") {
+        barhogyLepesKapcsolo()
+        feketePowerUp2.style.backgroundColor = "#5d716c"
+        feketePowerUp2.removeEventListener("click", barhogyLepesFekete)
+    }
+}
+
+function ketszerLepesFeher() {
+    console.log("jo");
+    let jatekosSzin = jatekos % 2 == 1 ? "feher" : "fekete"
+    if (jatekosSzin == "feher") {
+        ketszerLepesKapcsolo()
+        feherPowerUp1.style.backgroundColor = "#5d716c"
+        feherPowerUp1.removeEventListener("click", ketszerLepesFeher)
+    }
+}
+
+function barhogyLepesFeher() {
+    console.log("jo");
+    let jatekosSzin = jatekos % 2 == 1 ? "feher" : "fekete"
+    if (jatekosSzin == "feher") {
+        barhogyLepesKapcsolo()
+        feherPowerUp2.style.backgroundColor = "#5d716c"
+        feherPowerUp2.removeEventListener("click", barhogyLepesFeher)
+    }
+}
 
 let ketszerLepesValtozo = false
 let barhogyLepesValtozo = false
 
-// powerUp1.addEventListener("click", ketszerLepesKapcsolo())
-// powerUp2.addEventListener("click", barhogyLepesKapcsolo())
+
 
 function ketszerLepesKapcsolo() {
     if (ketszerLepesValtozo == false){
@@ -195,7 +243,7 @@ function lehetsegesLepes(y, x, jatekosSzin) {
 function parasztJeloles(y, x, jatekosSzin) {
     if (generaltTabla[y][x].irany == "fel") {
         let i = 1
-        while (i <= 3 && generaltTabla[y-i][x].szin == "") {
+        while (y-i >= 0 && i <= 3 && generaltTabla[y-i][x].szin == "") {
             if (!!generaltTabla[i]) {
                 generaltTabla[y-i][x].jeloles = "lehetseges"
             }
@@ -212,7 +260,7 @@ function parasztJeloles(y, x, jatekosSzin) {
         })
     } else {
         let i = 1
-        while (i <= 3 && generaltTabla[y+i][x].szin == "") {
+        while (y+i <= 11 && i <= 3 && generaltTabla[y+i][x].szin == "") {
             if (!!generaltTabla[i]) {
                 generaltTabla[y+i][x].jeloles = "lehetseges"
             }
@@ -548,9 +596,20 @@ function mozgatas(y, x) {
         generaltTabla[elozoY][elozoX] = new babu("", "")
         if (elozo.szin == "feher") {
             jatekos1Pontok += pontozasTabla[kiutottBabu.tipus]
+            if (kiutottBabu.tipus == "king") {
+                nyertes = jatekos2
+            }
         } else {
             jatekos2Pontok += pontozasTabla[kiutottBabu.tipus]
+            if (kiutottBabu.tipus == "king") {
+                nyertes = jatekos1
+            }
         }
+
+    if (generaltTabla[y][x].tipus == "pawn" && y == 11 && generaltTabla[y][x].irany == "le") {
+        generaltTabla[y][x].irany = "fel"
+    } else if (generaltTabla[y][x].tipus == "pawn" && y == 0 && generaltTabla[y][x].irany == "fel")
+        generaltTabla[y][x].irany = "le"
     }
 } //Ez felelős a bábuk mozgatásáért és kezeli a pontokat
 
@@ -569,7 +628,7 @@ function lepes(event) {
     if (!!elozo && celpont.szin != elozo.szin && lehetsegesLepes(y, x, jatekosSzin)) {
         mozgatas(y, x)
         jelolesekTorlese()
-        // pontokFrissites()
+        pontokFrissites()
         if (ketszerLepesValtozo == false) {
             jatekos++;
         } else {
