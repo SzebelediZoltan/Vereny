@@ -672,4 +672,6 @@ function lepes(event) {
 
 const kezdesGomb = document.querySelector("#kezdes")
 
-kezdesGomb.addEventListener("click", init(alapTabla))
+kezdesGomb.addEventListener("click", () => {
+    init(alapTabla)
+})
