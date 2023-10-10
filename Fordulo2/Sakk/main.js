@@ -5,10 +5,10 @@ let elozoY, elozoX
 const alapTabla = [
     ["2 1","3 1","4 1","6 1","5 1","4 1","3 1","2 1"],
     ["1 1","1 1","1 1","1 1","1 1","1 1","1 1","1 1"],
-    ["1 2","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
-    ["0 0","0 0","6 2","0 0","0 0","0 0","0 0","0 0"],
+    ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
+    ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
@@ -167,12 +167,12 @@ function lehetsegesLepes(y, x, jatekosSzin) {
 
 function parasztJeloles(y, x, jatekosSzin) {
     if (generaltTabla[y][x].irany == "fel") {
-        let i = 0
-        while (i > y-3  && generaltTabla[i][x].szin != "") {
-            if (i >= 0 && generaltTabla[i][x].szin == "") {
-                generaltTabla[i][x].jeloles = "lehetseges"
+        let i = 1
+        while (i <= 3 && generaltTabla[y-i][x].szin == "") {
+            if (!!generaltTabla[i]) {
+                generaltTabla[y-i][x].jeloles = "lehetseges"
             }
-            i-= 1
+            i++;
         }
     
         let offsets = [1, -1]
@@ -184,10 +184,12 @@ function parasztJeloles(y, x, jatekosSzin) {
             }
         })
     } else {
-        for (let i = y+1; i < y+4; i++) {
-            if (i <= 11 && generaltTabla[i][x].szin == "") {
-                generaltTabla[i][x].jeloles = "lehetseges"
+        let i = 1
+        while (i <= 3 && generaltTabla[y+i][x].szin == "") {
+            if (!!generaltTabla[i]) {
+                generaltTabla[y+i][x].jeloles = "lehetseges"
             }
+            i++;
         }
     
         let offsets = [1, -1]
@@ -313,8 +315,12 @@ function kiralySorban(y, x, jatekosSzin) {
     } 
     if (!!generaltTabla[y][i] && generaltTabla[y][i].szin != jatekosSzin && generaltTabla[y][i].szin != "") {
         generaltTabla[y][i].jeloles = "kiutheto"
-    } else {
+    } else if (!!generaltTabla[y][i]) {
         generaltTabla[y][i].jeloles = "lehetseges" 
+    }
+
+    if (!!generaltTabla[y][i] && generaltTabla[y][i].szin == jatekosSzin) {
+        generaltTabla[y][i].jeloles = "" 
     }
     
     i = x+1
@@ -324,8 +330,12 @@ function kiralySorban(y, x, jatekosSzin) {
     }
     if (!!generaltTabla[y][i] && generaltTabla[y][i].szin != jatekosSzin && generaltTabla[y][i].szin != "") {
         generaltTabla[y][i].jeloles = "kiutheto"
-    } else {
+    } else if (!!generaltTabla[y][i]) {
         generaltTabla[y][i].jeloles = "lehetseges" 
+    }
+
+    if (!!generaltTabla[y][i] && generaltTabla[y][i].szin == jatekosSzin) {
+        generaltTabla[y][i].jeloles = "" 
     }
 
     i = y+1
@@ -336,8 +346,12 @@ function kiralySorban(y, x, jatekosSzin) {
 
     if (!!generaltTabla[i] && generaltTabla[i][x].szin != jatekosSzin && generaltTabla[i][x].szin != "") {
         generaltTabla[i][x].jeloles = "kiutheto"
-    } else {
+    } else if (!!generaltTabla[i]) {
         generaltTabla[i][x].jeloles = "lehetseges" 
+    }
+
+    if (!!generaltTabla[i] && generaltTabla[i][x].szin == jatekosSzin) {
+        generaltTabla[i][x].jeloles = "" 
     }
     
     i = y-1
@@ -347,8 +361,12 @@ function kiralySorban(y, x, jatekosSzin) {
     }
     if (!!generaltTabla[i] && generaltTabla[i][x].szin != jatekosSzin && generaltTabla[i][x].szin != "") {
         generaltTabla[i][x].jeloles = "kiutheto"
-    } else {
+    } else if (!!generaltTabla[i]) {
         generaltTabla[i][x].jeloles = "lehetseges" 
+    }
+
+    if (!!generaltTabla[i] && generaltTabla[i][x].szin == jatekosSzin) {
+        generaltTabla[i][x].jeloles = "" 
     }
 }
 
@@ -362,8 +380,12 @@ function kiralyAtloban(y, x, jatekosSzin) {
     }
     if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin != jatekosSzin && generaltTabla[mostY][mostX].szin != "") {
         generaltTabla[mostY][mostX].jeloles = "kiutheto"
-    } else {
+    } else if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX]) {
         generaltTabla[mostY][mostX].jeloles = "lehetseges" 
+    }
+
+    if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin == jatekosSzin) {
+        generaltTabla[mostY][mostX].jeloles = "" 
     }
 
     mostY = y-1
@@ -375,8 +397,12 @@ function kiralyAtloban(y, x, jatekosSzin) {
     }
     if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin != jatekosSzin && generaltTabla[mostY][mostX].szin != "") {
         generaltTabla[mostY][mostX].jeloles = "kiutheto"
-    } else {
+    } else if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX]) {
         generaltTabla[mostY][mostX].jeloles = "lehetseges" 
+    }
+
+    if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin == jatekosSzin) {
+        generaltTabla[mostY][mostX].jeloles = "" 
     }
 
     mostY = y-1
@@ -388,8 +414,12 @@ function kiralyAtloban(y, x, jatekosSzin) {
     }
     if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin != jatekosSzin && generaltTabla[mostY][mostX].szin != "") {
         generaltTabla[mostY][mostX].jeloles = "kiutheto"
-    } else {
+    } else if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX]) {
         generaltTabla[mostY][mostX].jeloles = "lehetseges" 
+    }
+
+    if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin == jatekosSzin) {
+        generaltTabla[mostY][mostX].jeloles = "" 
     }
 
     mostY = y+1
@@ -401,9 +431,14 @@ function kiralyAtloban(y, x, jatekosSzin) {
     }
     if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin != jatekosSzin && generaltTabla[mostY][mostX].szin != "") {
         generaltTabla[mostY][mostX].jeloles = "kiutheto"
-    } else {
+    } else if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX]) {
         generaltTabla[mostY][mostX].jeloles = "lehetseges" 
     }
+
+    if (!!generaltTabla[mostY] && !!generaltTabla[mostY][mostX] && generaltTabla[mostY][mostX].szin == jatekosSzin) {
+        generaltTabla[mostY][mostX].jeloles = "" 
+    }
+
 }
 
 function kiralyJeloles(y, x, jatekosSzin) {
@@ -467,6 +502,8 @@ function jelolesekTorlese() {
         })
     });
     elozo = null
+    elozoY = null
+    elozoX = null
     rendereles(generaltTabla)
 } //Kitörli a jelenlegi jelöléseket
 
@@ -490,12 +527,15 @@ function lepes(event) {
     const y = celpont.parentNode.rowIndex
     const x = celpont.cellIndex
 
+    console.log(lehetsegesLepes(y, x, jatekosSzin));
 
-    if (!!elozo && lehetsegesLepes(y, x, jatekosSzin)) {
+    if (!!elozo && celpont.szin != elozo.szin && lehetsegesLepes(y, x, jatekosSzin)) {
         mozgatas(y, x)
         jelolesekTorlese()
+        console.log(jatekos1Pontok, jatekos2Pontok);
         jatekos++;
     } else if (lehetsegesLepes(y, x, jatekosSzin)){
+        console.log("Valami van");
         jeloles(y, x, jatekosSzin)
     }
 
