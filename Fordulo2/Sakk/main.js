@@ -3,6 +3,8 @@ let generaltTabla = []
 let elozo = null
 let elozoY, elozoX
 let nyertes = ""
+const nev1HTML = document.querySelector(".nev1")
+const nev2HTML = document.querySelector(".nev2")
 const alapTabla = [
     ["2 1","3 1","4 1","6 1","5 1","4 1","3 1","2 1"],
     ["1 1","1 1","1 1","1 1","1 1","1 1","1 1","1 1"],
@@ -24,8 +26,6 @@ const alapTabla = [
 
 //Az első szám a bábú típusát jelzi a masodik pedig, hogy kinek a bábuja
 // sakkTabla[0][0] == "1 1", ebben az esetben az első játékoshoz tartozó parasztbábu a bal felső sarokban helyezkedik el
-
-init(alapTabla)
 
 const pontozasTabla = {
     "": 0,
@@ -187,6 +187,16 @@ function init(sakkTabla) {
         generaltTabla.push(generaltSor)
         generaltSor = []
     })
+    
+    const kezdokepernyoHTML = document.querySelector("#kezdokepernyo")
+
+    const jatekos1 = document.querySelector("#jatekos1Inp").value
+    const jatekos2 = document.querySelector("#jatekos1Inp").value
+
+    nev1HTML.innerText = jatekos1
+    nev2HTML.innerText = jatekos2
+
+    kezdokepernyoHTML.style.display = "none"
 
     rendereles(generaltTabla)
     tablaHTML.addEventListener("click", lepes)
@@ -589,6 +599,22 @@ function jelolesekTorlese() {
     rendereles(generaltTabla)
 } //Kitörli a jelenlegi jelöléseket
 
+function nyertesVizsgalat(szin) {
+    let db = 0
+    generaltTabla.forEach(sor => {
+        sor.forEach(mezo => {
+            if (mezo.szin != szin && mezo.szin != "") {
+                db++
+            }
+        })
+    });
+    if (db == 0) {
+        return true
+    } else {
+        return false
+    }
+}
+
 function mozgatas(y, x) {
     if (generaltTabla[y][x].jeloles != "") {
         kiutottBabu = generaltTabla[y][x]
@@ -596,20 +622,22 @@ function mozgatas(y, x) {
         generaltTabla[elozoY][elozoX] = new babu("", "")
         if (elozo.szin == "feher") {
             jatekos1Pontok += pontozasTabla[kiutottBabu.tipus]
-            if (kiutottBabu.tipus == "king") {
-                nyertes = jatekos2
-            }
         } else {
             jatekos2Pontok += pontozasTabla[kiutottBabu.tipus]
-            if (kiutottBabu.tipus == "king") {
-                nyertes = jatekos1
-            }
         }
 
     if (generaltTabla[y][x].tipus == "pawn" && y == 11 && generaltTabla[y][x].irany == "le") {
         generaltTabla[y][x].irany = "fel"
     } else if (generaltTabla[y][x].tipus == "pawn" && y == 0 && generaltTabla[y][x].irany == "fel")
         generaltTabla[y][x].irany = "le"
+    }
+
+    if (nyertesVizsgalat(elozo.szin)) {
+        if (elozo.szin == "feher") {
+            nyertes = jatekos2
+        } else {
+            nyertes = jatekos1
+        }
     }
 } //Ez felelős a bábuk mozgatásáért és kezeli a pontokat
 
@@ -639,3 +667,9 @@ function lepes(event) {
     }
 
 } //Ez az egész felelős az összes lépésért a jétékban
+
+// -- KEZDŐKÉPERNYŐ --//
+
+const kezdesGomb = document.querySelector("#kezdes")
+
+kezdesGomb.addEventListener("click", init(alapTabla))
