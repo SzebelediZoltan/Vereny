@@ -150,6 +150,7 @@ tr:nth-child(2n) >:nth-child(2n):hover, tr:nth-child(2n+1) >:nth-child(2n+1):hov
     width: 100vw;
     height: 100vh;
     background-color: #779952;
+    z-index: 99;
 }
 
 #kezdokepernyo h1 {
