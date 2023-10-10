@@ -20,6 +20,7 @@ const alapTabla = [
     ["2 2","3 2","4 2","5 2","6 2","4 2","3 2","2 2"]
 ];
 
+
 // Az első indexe a mátrixnak az y tengelyen való elhelyezkedését jelzi
 // Az első indexe a mátrixnak az x tengelyen való elhelyezkedését jelzi
 // sakkTabla[y][x]
