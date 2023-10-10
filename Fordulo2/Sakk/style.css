@@ -156,7 +156,7 @@ tr:nth-child(2n) >:nth-child(2n):hover, tr:nth-child(2n+1) >:nth-child(2n+1):hov
 
 #kezdokepernyo {
     text-align: center;
-    font-size: 4vw;
+    font-size: 4vh;
     margin: 0px;
 }
 
