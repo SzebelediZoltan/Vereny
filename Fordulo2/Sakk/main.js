@@ -9,7 +9,7 @@ const alapTabla = [
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
-    ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
+    ["0 0","0 0","6 2","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
     ["0 0","0 0","0 0","0 0","0 0","0 0","0 0","0 0"],
@@ -36,10 +36,38 @@ const pontozasTabla = {
     "queen": 5
 }
 
+// const jatekos1PontokHTML = document.querySelector("")
+// const jatekos2PontokHTML = document.querySelector("")
+
 let jatekos1Pontok = 0
 let jatekos2Pontok = 0
 
 let jatekos = 1 //Itt számolja melyik játékos jön ha osztható 2-vel akkor a fekete ha nem akkor pedig a fehér
+
+// const powerUp1 = document.querySelector("")
+// const powerUp2 = document.querySelector("")
+
+let ketszerLepesValtozo = false
+let barhogyLepesValtozo = false
+
+// powerUp1.addEventListener("click", ketszerLepesKapcsolo())
+// powerUp2.addEventListener("click", barhogyLepesKapcsolo())
+
+function ketszerLepesKapcsolo() {
+    if (ketszerLepesValtozo == false){
+        ketszerLepesValtozo = true
+    } else {
+        ketszerLepesValtozo = false
+    }
+}
+
+function barhogyLepesKapcsolo() {
+    if (barhogyLepesValtozo == false){
+        barhogyLepesValtozo = true
+    } else {
+        barhogyLepesValtozo = false
+    }
+}
 
 function babu(tipus, szin) {
     this.tipus = tipus
@@ -117,7 +145,6 @@ function init(sakkTabla) {
 } //Legenerál egy nekünk megfelelő táblát a nyers táblából
 
 function rendereles(tabla) {
-    console.log("renderelés");
     tablaHTML.innerHTML = ""
     tabla.forEach(sor => {
         const tr = document.createElement("tr")
@@ -452,27 +479,34 @@ function kiralynoJeloles(y, x, jatekosSzin) {
 } //Ez kezeli hova léphet egy kiralyno
 
 function jeloles(y, x, jatekosSzin) {
-    switch (generaltTabla[y][x].tipus) {
-        case "pawn":
-            parasztJeloles(y, x, jatekosSzin)
-            break;
-        case "rook":
-            bastyaJeloles(y, x, jatekosSzin)
-            break;
-        case "bishop":
-            futoJeloles(y, x, jatekosSzin)
-            break;
-        case "knight":
-            loJeloles(y, x, jatekosSzin)
-            break;
-        case "king":
-            kiralyJeloles(y, x, jatekosSzin)
-            break;
-        case "queen":
-            kiralynoJeloles(y, x, jatekosSzin)
-            break;
-        default:
-            break;
+    if (barhogyLepesValtozo == false){
+        switch (generaltTabla[y][x].tipus) {
+            case "pawn":
+                parasztJeloles(y, x, jatekosSzin)
+                break;
+            case "rook":
+                bastyaJeloles(y, x, jatekosSzin)
+                break;
+            case "bishop":
+                futoJeloles(y, x, jatekosSzin)
+                break;
+            case "knight":
+                loJeloles(y, x, jatekosSzin)
+                break;
+            case "king":
+                kiralyJeloles(y, x, jatekosSzin)
+                break;
+            case "queen":
+                kiralynoJeloles(y, x, jatekosSzin)
+                break;
+            default:
+                break;
+        }
+    } else {
+        sorbanJeloles(y, x, jatekosSzin)
+        atlobanJeloles(y, x, jatekosSzin)
+        loJeloles(y, x, jatekosSzin)
+        barhogyLepesKapcsolo()
     }
 
     if (jelolesekszama() != 0) {
@@ -484,7 +518,7 @@ function jeloles(y, x, jatekosSzin) {
 } //Megjelöli mely mezőkre lehet lépni
 
 function jelolesekszama() {
-    dbJeloles = 0
+    let dbJeloles = 0
     generaltTabla.forEach(sor => {
         sor.forEach(mezo => {
             if (mezo.jeloles == "lehetseges" || mezo.jeloles == "kiutheto") {
@@ -520,6 +554,11 @@ function mozgatas(y, x) {
     }
 } //Ez felelős a bábuk mozgatásáért és kezeli a pontokat
 
+function pontokFrissites() {
+    jatekos1PontokHTML.innerHTML = jatekos1Pontok
+    jatekos2PontokHTML.innerHTML = jatekos2Pontok
+}
+
 function lepes(event) {
     let celpont = event.target.closest("td")
     let jatekosSzin = jatekos % 2 == 1 ? "feher" : "fekete"
@@ -527,15 +566,16 @@ function lepes(event) {
     const y = celpont.parentNode.rowIndex
     const x = celpont.cellIndex
 
-    console.log(lehetsegesLepes(y, x, jatekosSzin));
-
     if (!!elozo && celpont.szin != elozo.szin && lehetsegesLepes(y, x, jatekosSzin)) {
         mozgatas(y, x)
         jelolesekTorlese()
-        console.log(jatekos1Pontok, jatekos2Pontok);
-        jatekos++;
+        // pontokFrissites()
+        if (ketszerLepesValtozo == false) {
+            jatekos++;
+        } else {
+            ketszerLepesKapcsolo()
+        }
     } else if (lehetsegesLepes(y, x, jatekosSzin)){
-        console.log("Valami van");
         jeloles(y, x, jatekosSzin)
     }
 
