@@ -153,3 +153,33 @@ tr:nth-child(2n) >:nth-child(2n):hover, tr:nth-child(2n+1) >:nth-child(2n+1):hov
     height: 100vh;
     background-color: #779952;
 }
+
+#kezdokepernyo {
+    text-align: center;
+    font-size: 300%;
+    margin: 0px;
+}
+
+#kezdokepernyo input {
+    height: 4vh;
+    width: 14vw;
+    font-size: 1.2vw;
+
+    
+}
+
+#kezdokepernyo button {
+    height: 7vh;
+    width: 9vw;
+    margin-top: 20px;
+    border-radius: 10px;
+    font-size: 2vw;
+    border: #1e3604 3px solid;
+    background-color: #84c93b;
+    transition: all 0.5s;
+}
+
+#kezdokepernyo button:hover {
+    box-shadow: 0 0 10px white;
+    transform: scale(110%);
+}

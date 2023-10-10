@@ -189,13 +189,14 @@ function init() {
         generaltSor = []
     })
     
-    
     jatekos1 = document.querySelector("#jatekos1Inp").value
     jatekos2 = document.querySelector("#jatekos2Inp").value
     korokSzama = document.querySelector("#korokszama")
 
     document.querySelector("#kezdokepernyo").style.display = "none"
-
+    document.querySelector("table").style.display = "table"
+    document.querySelector("#info").style.display = "flex"
+    
     nev1HTML.innerText = jatekos1
     nev2HTML.innerText = jatekos2
 
