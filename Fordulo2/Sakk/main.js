@@ -3,8 +3,6 @@ let generaltTabla = []
 let elozo = null
 let elozoY, elozoX
 let nyertes = ""
-const jatek = document.querySelector("jatek")
-jatek.style.display = "none"
 const nev1HTML = document.querySelector(".nev1")
 const nev2HTML = document.querySelector(".nev2")
 const alapTabla = [
@@ -196,7 +194,6 @@ function init() {
     nev2HTML.innerText = jatekos2
 
     kezdokepernyoHTML.style.display = "none"
-    jatek.style.display = "inline"
 
     rendereles(generaltTabla)
     tablaHTML.addEventListener("click", lepes)
