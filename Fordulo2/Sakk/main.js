@@ -57,7 +57,6 @@ feherPowerUp1.addEventListener("click", ketszerLepesFeher)
 feherPowerUp2.addEventListener("click", barhogyLepesFeher)
 
 function ketszerLepesFekete() {
-    console.log("jo");
     let jatekosSzin = jatekos % 2 == 1 ? "feher" : "fekete"
     if (jatekosSzin == "fekete") {
         ketszerLepesKapcsolo()
@@ -67,7 +66,6 @@ function ketszerLepesFekete() {
 }
 
 function barhogyLepesFekete() {
-    console.log("jo");
     let jatekosSzin = jatekos % 2 == 1 ? "feher" : "fekete"
     if (jatekosSzin == "fekete") {
         barhogyLepesKapcsolo()
@@ -77,7 +75,6 @@ function barhogyLepesFekete() {
 }
 
 function ketszerLepesFeher() {
-    console.log("jo");
     let jatekosSzin = jatekos % 2 == 1 ? "feher" : "fekete"
     if (jatekosSzin == "feher") {
         ketszerLepesKapcsolo()
@@ -87,7 +84,6 @@ function ketszerLepesFeher() {
 }
 
 function barhogyLepesFeher() {
-    console.log("jo");
     let jatekosSzin = jatekos % 2 == 1 ? "feher" : "fekete"
     if (jatekosSzin == "feher") {
         barhogyLepesKapcsolo()
@@ -191,7 +187,7 @@ function init(sakkTabla) {
     const kezdokepernyoHTML = document.querySelector("#kezdokepernyo")
 
     const jatekos1 = document.querySelector("#jatekos1Inp").value
-    const jatekos2 = document.querySelector("#jatekos1Inp").value
+    const jatekos2 = document.querySelector("#jatekos2Inp").value
 
     nev1HTML.innerText = jatekos1
     nev2HTML.innerText = jatekos2
@@ -671,7 +667,3 @@ function lepes(event) {
 // -- KEZDŐKÉPERNYŐ --//
 
 const kezdesGomb = document.querySelector("#kezdes")
-
-kezdesGomb.addEventListener("click", () => {
-    init(alapTabla)
-})
