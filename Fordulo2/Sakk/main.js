@@ -644,8 +644,8 @@ function mozgatas(y, x) {
 } //Ez felelős a bábuk mozgatásáért és kezeli a pontokat
 
 function pontokFrissites() {
-    jatekos1PontokHTML.innerHTML = jatekos1Pontok
-    jatekos2PontokHTML.innerHTML = jatekos2Pontok
+    jatekos1PontokHTML.innerHTML = jatekos2Pontok
+    jatekos2PontokHTML.innerHTML = jatekos1Pontok
 }
 
 function lepes(event) {
