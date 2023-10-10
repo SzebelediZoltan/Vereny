@@ -193,8 +193,6 @@ function init() {
     nev1HTML.innerText = jatekos1
     nev2HTML.innerText = jatekos2
 
-    kezdokepernyoHTML.style.display = "none"
-
     rendereles(generaltTabla)
     tablaHTML.addEventListener("click", lepes)
 } //Legenerál egy nekünk megfelelő táblát a nyers táblából
@@ -666,7 +664,3 @@ function lepes(event) {
 } //Ez az egész felelős az összes lépésért a jétékban
 
 // -- KEZDŐKÉPERNYŐ --//
-
-const kezdesGomb = document.querySelector("#kezdes")
-
-kezdesGomb.addEventListener("click", init)
