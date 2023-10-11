@@ -4,6 +4,7 @@ let elozo = null
 let elozoY, elozoX
 let nyertes = ""
 let jatekos1, jatekos2, korokSzama
+const korokHTML = document.querySelector("#korok")
 const nev1HTML = document.querySelector(".nev1")
 const nev2HTML = document.querySelector(".nev2")
 const alapTabla = [
@@ -62,7 +63,7 @@ function ketszerLepesFekete() {
     let jatekosSzin = jatekos % 2 == 1 ? "feher" : "fekete"
     if (jatekosSzin == "fekete") {
         ketszerLepesKapcsolo()
-        feketePowerUp1.style.backgroundColor = "#5d716c"
+        feketePowerUp1.style.backgroundColor = "#303d21"
         feketePowerUp1.removeEventListener("click", ketszerLepesFekete)
     }
 }
@@ -71,7 +72,7 @@ function barhogyLepesFekete() {
     let jatekosSzin = jatekos % 2 == 1 ? "feher" : "fekete"
     if (jatekosSzin == "fekete") {
         barhogyLepesKapcsolo()
-        feketePowerUp2.style.backgroundColor = "#5d716c"
+        feketePowerUp2.style.backgroundColor = "#303d21"
         feketePowerUp2.removeEventListener("click", barhogyLepesFekete)
     }
 }
@@ -80,7 +81,7 @@ function ketszerLepesFeher() {
     let jatekosSzin = jatekos % 2 == 1 ? "feher" : "fekete"
     if (jatekosSzin == "feher") {
         ketszerLepesKapcsolo()
-        feherPowerUp1.style.backgroundColor = "#5d716c"
+        feherPowerUp1.style.backgroundColor = "#303d21"
         feherPowerUp1.removeEventListener("click", ketszerLepesFeher)
     }
 }
@@ -89,7 +90,7 @@ function barhogyLepesFeher() {
     let jatekosSzin = jatekos % 2 == 1 ? "feher" : "fekete"
     if (jatekosSzin == "feher") {
         barhogyLepesKapcsolo()
-        feherPowerUp2.style.backgroundColor = "#5d716c"
+        feherPowerUp2.style.backgroundColor = "#303d21"
         feherPowerUp2.removeEventListener("click", barhogyLepesFeher)
     }
 }
@@ -202,6 +203,7 @@ function init() {
 
     rendereles(generaltTabla)
     tablaHTML.addEventListener("click", lepes)
+    korokHTML.innerText = ("Hátralévő körök: " + (korokSzama.value - (jatekos-1)/2))
 } //Legenerál egy nekünk megfelelő táblát a nyers táblából
 
 function rendereles(tabla) {
@@ -640,12 +642,31 @@ function mozgatas(y, x) {
         } else {
             nyertes = jatekos1
         }
+        jatekVege("kiutott")
     }
 } //Ez felelős a bábuk mozgatásáért és kezeli a pontokat
 
 function pontokFrissites() {
-    jatekos1PontokHTML.innerHTML = jatekos2Pontok
-    jatekos2PontokHTML.innerHTML = jatekos1Pontok
+    jatekos1PontokHTML.innerHTML = jatekos1Pontok
+    jatekos2PontokHTML.innerHTML = jatekos2Pontok
+}
+
+function korokFrissites() {
+    const hatralevoKorok = korokSzama.value - (jatekos-1)/2
+    if (jatekos % 2 == 1) {
+        korokHTML.innerText = "Hátralévő körök: " + hatralevoKorok
+    }
+
+    if (hatralevoKorok == 0) {
+        if (jatekos1Pontok > jatekos2Pontok) {
+            nyertes = jatekos2
+        } else if (jatekos2Pontok > jatekos1Pontok) {
+            nyertes = jatekos1
+        } else {
+            nyertes = "dontetlen"
+        }
+        jatekVege("pontok")
+    }
 }
 
 function lepes(event) {
@@ -661,6 +682,7 @@ function lepes(event) {
         pontokFrissites()
         if (ketszerLepesValtozo == false) {
             jatekos++;
+            korokFrissites()
         } else {
             ketszerLepesKapcsolo()
         }
@@ -668,6 +690,28 @@ function lepes(event) {
         jeloles(y, x, jatekosSzin)
     }
 
+    console.log(jatekos);
 } //Ez az egész felelős az összes lépésért a jétékban
 
-// -- KEZDŐKÉPERNYŐ --//
+function jatekVege(ok) {
+    const nyertesKep = document.querySelector("#nyertesKep")
+    const nyertesSzoveg = document.querySelector("#nyertesKiiras")
+    const ujraGomb = document.querySelector("#ujrakezdes")
+    const okHTML = document.querySelector("#ok")
+    nyertesKep.style.display = "block"
+    korokHTML.innerText = ""
+    if (nyertes == "dontetlen") {
+        nyertesSzoveg.innerText = "Ez most döntetlen lett :("
+    } else {
+        nyertesSzoveg.innerText = "A nyerteees: " + nyertes
+        if (ok == "pontok") {
+            okHTML.innerText = "Sikeresen megnyerted " + nyertes + " több pont szerzésével!"
+        } else {
+            okHTML.innerText = "Sikeresen megnyerted " + nyertes + " az ellenfél összes bábújának leütésével!"
+        }
+    }
+
+    ujraGomb.addEventListener("click", () => {
+        location.reload()
+    })
+}

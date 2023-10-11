@@ -8,20 +8,35 @@
     <title>2. fordulo</title>
 </head>
 <body>
-    <section id="kezdokepernyo">
-        <h1>Sakk2</h1>
-        
-        <div>
-            <p>Játékos 1:</p>
-            <input id="jatekos1Inp" placeholder="Add meg a nevedet!" type="text">
-            <p>Játékos 2:</p>
-            <input id="jatekos2Inp" placeholder="Add meg a nevedet!" type="text">
-            <p>Körök száma:</p>
-            <input id="korokszama" placeholder="Add meg a körök számát!" type="number">
+    <section id="nyertesKep">
+        <div id="nyertesMenu">
+            <h1 id="nyertesKiiras"></h1>
+            <p id="ok"></p>
+            <button id="ujrakezdes">Újrakezdes</button>
         </div>
-        <button id="kezdes">
-            Kezdés
-        </button>
+    </section>
+
+    <section id="kezdokepernyo">
+        <div id="kezdoMenu">
+            <h1>Sakk<span>2</span></h1>
+            <div>
+                <div>
+                    <p>Játékos 1:</p>
+                    <input id="jatekos1Inp" placeholder="Add meg a nevedet!" type="text">
+                </div>
+                <div>
+                    <p>Játékos 2:</p>
+                    <input id="jatekos2Inp" placeholder="Add meg a nevedet!" type="text">
+                </div>
+                <div>
+                    <p>Körök száma:</p>
+                    <input id="korokszama" min="1" value="1" type="number">
+                </div>
+            </div>
+            <button id="kezdes">
+                Kezdés
+            </button>
+        </div>
     </section>
 
     <section id="tabla">
@@ -30,11 +45,12 @@
     </section>
 
     <section id="info">
+        <p id="korok"></p>
         <div class="player">
             <div class="felso">
                 <div class="fejlec">
                     <div class="nev nev1"></div>
-                    <div class="pont pont1">0</div>
+                    <div class="pont pont2">0</div>
                 </div>
             </div>
 
@@ -51,7 +67,7 @@
             <div class="felso">
                 <div class="fejlec">
                     <div class="nev nev2"></div>
-                    <div class="pont pont2">0</div>
+                    <div class="pont pont1">0</div>
                 </div>
             </div>
 

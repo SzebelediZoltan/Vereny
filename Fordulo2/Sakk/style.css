@@ -2,136 +2,125 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-
 body {
     margin: 0;
     padding: 0;
     height: 100vh;
     width: 100vw;
     display: grid;
-    background-color: #312e2b;
-    grid-template-areas: 
-        "a b"
-    ;
+    background-color: #917c5d;
+    grid-template-areas: "a b" ;
+    overflow: hidden;
 }
-
 #tabla {
     grid-template-areas: "a";
     margin: auto;
 }
-
 table {
     border-collapse: collapse;
     border: 5px solid black;
     display: none;
 }
-
 #info {
     grid-template-areas: "b";
     display: flex;
     flex-direction: column;
     display: none;
 }
-
 .player {
     width: 100%;
     height: 100%;
-    background-color: #312e2b;
-    border: 3px solid black;
+    background-color: #504433;
+    border-left: 6px solid black;
     border-collapse: collapse;
 }
-
+.player:nth-of-type(1) {
+    border-bottom: 3px solid black;
+}
+.player:nth-of-type(2) {
+    border-top: 3px solid black;
+}
 td{
     background-color: #edeed1;
-    /* border: 3px solid black; */
+   /* border: 3px solid black;
+    */
     width: calc(100vh / 13);
     height: calc(100vh / 13);
+    cursor: pointer;
 }
-
 td:hover {
     background-color: rgba(0, 255, 30, 0.742);
 }
-
 tr:nth-child(2n) >:nth-child(2n), tr:nth-child(2n+1) >:nth-child(2n+1) {
     background-color: #779952;
 }
-
 tr:nth-child(2n) >:nth-child(2n):hover, tr:nth-child(2n+1) >:nth-child(2n+1):hover {
     background-color: rgba(0, 255, 30, 0.742);
 }
-
-/* .player {
-    
-} */
-
 .felso {
     height: 20%;
     display: flex;
     align-items: flex-end;
 }
-
 .also {
     height: 80%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
 }
-
 .fejlec {
-    background-color: grey;
-    width: 50%;
-    height: 90%;
-    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.74);
+    border-radius: 5px;
     display: flex;
     margin: 0 auto;
+    padding: 0 1vw;
     justify-content: space-evenly;
     align-items: center;
+    gap: 15px;
 }
-
 .fejlec .nev {
     font-size: 4rem;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-weight: bold;
     font-variant: small-caps;
 }
-
 .pont {
-    aspect-ratio: 1/1;
-    height: 90%;
+    width: 7vh;
+    height: 7vh;
     border-radius: 10px;
-    background-color: black;
+    background-color: #223112b2;
     color: white;
     text-align: center;
     font-size: 3.2em;
-    /* position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   /* position: relative;
     top: 50%;
     transform: translateY(-50%);
-    margin-right: 10px; */
+    margin-right: 10px;
+    */
 }
-
 .kepesseg {
-    width: 40%;
-    height: 80%;
-    border-radius: 10px;
-    background-color: #64ffd8;
+    width: 30%;
+    height: 60%;
+    border-radius: 30px;
+    background-color: #779952;
     background-size: 80%;
     background-repeat: no-repeat;
     background-position: center;
+    cursor: pointer;
 }
-
 .kepesseg:hover {
     box-shadow: 0 0 10px 3px white;
 }
-
 .ketkor {
     background-image: url(./kepesseg/ketkor.png);
 }
-
 .soklepes {
     background-image: url(./kepesseg/soklepes.png);
 }
-
 .babu {
     text-align: center;
     margin: auto;
@@ -139,45 +128,121 @@ tr:nth-child(2n) >:nth-child(2n):hover, tr:nth-child(2n+1) >:nth-child(2n+1):hov
     width: calc(100vh/13);
     font-size: calc(100vh/13);
 }
-
 .fekete {
     color: #3a3a3a;
 }
-
 .feher {
-    color: #dfdfdf;
+    color: #c5c5c5;
 }
-
 #kezdokepernyo {
+    z-index: 100;
     width: 100vw;
     height: 100vh;
-    background-color: #779952;
+    background-color: #c0dda0;
 }
-
-#kezdokepernyo {
-    text-align: center;
-    font-size: 4vh;
-    margin: 0px;
-}
-
-#kezdokepernyo input {
-    height: 4vh;
-    width: 14vw;
-    font-size: 1.2vw;
-}
-
-#kezdokepernyo button {
-    height: 7vh;
-    width: 9vw;
-    margin-top: 20px;
+#kezdoMenu {
     border-radius: 10px;
+    width: 50vw;
+    background-color: rgb(242, 252, 240);
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 170%;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 15px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.384);
+}
+#kezdoMenu div input{
+    height: 2vh;
+}
+#kezdoMenu div div {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #42424238;
+    margin: 10px 0;
+    padding: 0 10px;
+    border-radius: 10px;
+}
+#kezdoMenu div div input {
+    border-radius: 5px;
+    padding: 3px;
+    border: 3px solid gray;
+}
+#korokszama {
+    width: 2vw;
+}
+#kezdoMenu h1 {
+    align-self: center;
+    margin: 0;
+}
+#kezdoMenu h1 span {
+    color: orange;
+}
+#kezdoMenu button {
+    width: 20%;
+    align-self: center;
     font-size: 2vw;
-    border: #1e3604 3px solid;
-    background-color: #84c93b;
+    border-radius: 5px;
+    border: 3px solid black;
+    font-weight: bold;
     transition: all 0.5s;
 }
-
-#kezdokepernyo button:hover {
-    box-shadow: 0 0 10px white;
+#kezdoMenu button:hover {
+    background-color: #779952;
+    color: white;
+    transform: scale(105%);
+}
+#korok {
+    position: absolute;
+    top: 0;
+    left: 1%;
+    color: white;
+    font-weight: bold;
+}
+#nyertesKep {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    display: none;
+}
+#nyertesMenu {
+    width: 30vw;
+    height: 30vh;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(185, 209, 185);
+    border-radius: 10px;
+    border: 5px solid rgb(8, 71, 13);
+    box-shadow: 5px 5px 10px rgba(255, 255, 255, 0.466);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5%;
+    align-items: center;
+}
+#nyertesKiiras {
+    font-size: 2vw;
+    margin-bottom: 0;
+}
+#ujrakezdes {
+    width: 30%;
+    height: 15%;
+    background-color: rgb(211, 211, 211);
+    border-radius: 5px;
+    border: 2px solid black;
+    font-size: 0.9vw;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+#ujrakezdes:hover {
     transform: scale(110%);
+    background-color: #779952;
+    color: white;
+    box-shadow: 0 0 10px white;
 }
