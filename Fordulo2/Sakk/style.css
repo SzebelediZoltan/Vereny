@@ -246,3 +246,10 @@ tr:nth-child(2n) >:nth-child(2n):hover, tr:nth-child(2n+1) >:nth-child(2n+1):hov
     color: white;
     box-shadow: 0 0 10px white;
 }
+#szabalyokGomb {
+    position: absolute;
+    bottom: 2%;
+    right: 2%;
+    border: black 2px solid;
+    border-radius: 5px;
+}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Sakk 2 - Szabályok | Original | Sz.Z</title>
+    <link rel="icon" type="image/png" href="./image/chess_piece_king.png">
+</head>
+<body>
+    <h1>Sakk 2 - A Játékszabályzat</h1>
+    
+    <h2>Általános szabályok:</h2>
+    <h3>A "Sakk 2" egy kibővített sakkjáték, ahol az alábbi változások vannak a hagyományos sakkhoz képest.</h3>
+    <ul>
+        <li>A játéktábla nem 8x8 méretű, hanem 8 oszlopból és 12 sorból áll.</li>
+        <li>Az alapfelállás a hagyományos sakkal megegyezik, csak most messzebb kezdenek egymástól a bábuk.</li>
+        <li>Nincsen sakk vagy matt; a Király is csak egy leüthető figura, mint a többi.</li>
+        <li>Az a játékos nyer, aki először szedi le az ellenfele minden bábuját.</li>
+        <li>A Király 2 mezőnyt is tud mozogni bármelyik irányba.</li>
+        <li>A Gyalog előre felé léphet 1, 2, vagy akár 3 mezőt is, viszont ütni továbbra is csak átlóban 1 lépéssel tud.</li>
+        <li>Az ellenfél alapvonalát elérő Gyalog nem alakul át semmivé, cserébe onnantól kezdve fordított irányba mozog és üt. Ha ezután eléri a saját alapvonalát, akkor ismét visszafordul, és az eredeti irányba tud menni.
+        <li>Minden figurához pontérték van rendelve: Gyalog <span class="pontozas">1</span>, Futó <span class="pontozas">2</span>, Huszár <span class="pontozas">2</span>, Király <span class="pontozas">2</span>, Bástya <span class="pontozas">3</span>, Vezér <span class="pontozas">5</span>.</li>
+    </ul>
+    
+    <h2>Különleges képességek:</h2>
+    <ul>
+        <li>Minden játékosnak 2 különleges képessége van, amit a játék során egyszer-egyszer elhasználhatnak:</li>
+        <li>Joker lépés: Ezzel a képességgel a körben a kiválasztott figura bármelyik másik figura lépése szerint mozoghat. Csak 1 lépés erejéig tart a hatása.</li>
+        <li>Dupla lépés: Ezt aktiválva a játékos két lépést is végrehajthat egymás után.</li>
+    </ul>
+    
+    <h2>Körszámláló:</h2>
+    <p>A játékban van egy körszámláló. A játék indításakor a program bekéri a körök számát. Ha ennyi kör alatt senki sem nyer, a játszma akkor is véget ér, és az az oldal lesz a győztes amely több pontott szerzett az ellenfél bábúinak leütéséből.</p>
+</body>
