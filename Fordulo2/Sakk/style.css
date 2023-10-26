@@ -247,6 +247,8 @@ tr:nth-child(2n) >:nth-child(2n):hover, tr:nth-child(2n+1) >:nth-child(2n+1):hov
     box-shadow: 0 0 10px white;
 }
 #szabalyokGomb {
+    color: black;
+    text-decoration: none;
     position: absolute;
     bottom: 2%;
     right: 2%;
