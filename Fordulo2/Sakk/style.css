@@ -1,214 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto&display=swap');
+
 :root {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Roboto', 'Arial Narrow', Arial, sans-serif;
+    --elsodleges: #eeeed2;
+    --masodlagos: #769656;
 }
-body {
+
+body{
     margin: 0;
-    padding: 0;
-    height: 100vh;
+    background-color: var(--masodlagos);
+}
+
+#szabalyokGomb {
+    position: absolute;
+    bottom: 1%;
+    right: 1%;
+}
+
+#kezdokepernyo {
     width: 100vw;
-    display: grid;
-    background-color: #917c5d;
-    grid-template-areas: "a b" ;
-    overflow: hidden;
-}
-#tabla {
-    grid-template-areas: "a";
-    margin: auto;
-}
-table {
-    border-collapse: collapse;
-    border: 5px solid black;
-    display: none;
-}
-#info {
-    grid-template-areas: "b";
-    display: flex;
-    flex-direction: column;
-    display: none;
-}
-.player {
-    width: 100%;
-    height: 100%;
-    background-color: #504433;
-    border-left: 6px solid black;
-    border-collapse: collapse;
-}
-.player:nth-of-type(1) {
-    border-bottom: 3px solid black;
-}
-.player:nth-of-type(2) {
-    border-top: 3px solid black;
-}
-td{
-    background-color: #edeed1;
-   /* border: 3px solid black;
-    */
-    width: calc(100vh / 13);
-    height: calc(100vh / 13);
-    cursor: pointer;
-}
-td:hover {
-    background-color: rgba(0, 255, 30, 0.742);
-}
-tr:nth-child(2n) >:nth-child(2n), tr:nth-child(2n+1) >:nth-child(2n+1) {
-    background-color: #779952;
-}
-tr:nth-child(2n) >:nth-child(2n):hover, tr:nth-child(2n+1) >:nth-child(2n+1):hover {
-    background-color: rgba(0, 255, 30, 0.742);
-}
-.felso {
-    height: 20%;
-    display: flex;
-    align-items: flex-end;
-}
-.also {
-    height: 80%;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-.fejlec {
-    background-color: rgba(255, 255, 255, 0.74);
-    border-radius: 5px;
-    display: flex;
-    margin: 0 auto;
-    padding: 0 1vw;
-    justify-content: space-evenly;
-    align-items: center;
-    gap: 15px;
-}
-.fejlec .nev {
-    font-size: 4rem;
-    font-weight: bold;
-    font-variant: small-caps;
-}
-.pont {
-    width: 7vh;
-    height: 7vh;
-    border-radius: 10px;
-    background-color: #223112b2;
-    color: white;
-    text-align: center;
-    font-size: 3.2em;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-   /* position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    margin-right: 10px;
-    */
+    font-size: 130%;
 }
-.kepesseg {
-    width: 30%;
-    height: 60%;
-    border-radius: 30px;
-    background-color: #779952;
-    background-size: 80%;
-    background-repeat: no-repeat;
-    background-position: center;
-    cursor: pointer;
-}
-.kepesseg:hover {
-    box-shadow: 0 0 10px 3px white;
-}
-.ketkor {
-    background-image: url(./kepesseg/ketkor.png);
-}
-.soklepes {
-    background-image: url(./kepesseg/soklepes.png);
-}
-.babu {
-    text-align: center;
-    margin: auto;
-    height: calc(100vh/13);
-    width: calc(100vh/13);
-    font-size: calc(100vh/13);
-}
-.fekete {
-    color: #3a3a3a;
-}
-.feher {
-    color: #c5c5c5;
-}
-#kezdokepernyo {
-    z-index: 100;
-    width: 100vw;
-    height: 100vh;
-    background-color: #c0dda0;
-}
+
 #kezdoMenu {
-    border-radius: 10px;
-    width: 50vw;
-    background-color: rgb(242, 252, 240);
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 170%;
+    width: 60vw;
+    height: fit-content;
     display: flex;
     flex-direction: column;
-    padding: 10px 15px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.384);
-}
-#kezdoMenu div input{
-    height: 2vh;
-}
-#kezdoMenu div div {
-    display: flex;
     align-items: center;
-    gap: 15px;
-    background-color: #42424238;
-    margin: 10px 0;
-    padding: 0 10px;
-    border-radius: 10px;
-}
-#kezdoMenu div div input {
+    background-color: var(--elsodleges);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.672);
     border-radius: 5px;
-    padding: 3px;
-    border: 3px solid gray;
 }
-#korokszama {
-    width: 2vw;
-}
-#kezdoMenu h1 {
-    align-self: center;
-    margin: 0;
-}
+
 #kezdoMenu h1 span {
     color: orange;
+} 
+
+#kezdoMenu div {
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    width: 100%;
+    align-items: center;
 }
-#kezdoMenu button {
-    width: 20%;
-    align-self: center;
-    font-size: 2vw;
+
+#kezdoMenu div div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.695);
+    width: 90%;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+#kezdoMenu div div input {
+    font-size: 80%;
     border-radius: 5px;
-    border: 3px solid black;
-    font-weight: bold;
-    transition: all 0.5s;
 }
+
+#kezdoMenu button {
+    margin: 2vh;
+    font-size: 1.3em;
+    width: 12vw;
+    background-color: rgba(255, 255, 255, 0.549);
+    border: var(--masodlagos) 3px dashed;
+    cursor: pointer;
+    transition: 1s all;
+}
+
 #kezdoMenu button:hover {
-    background-color: #779952;
-    color: white;
-    transform: scale(105%);
+    background-color: rgba(0, 0, 0, 0.126);
+    border: var(--masodlagos) 3px solid;
+    border-radius: 5px;
+    transform: scale(102%);
 }
-#korok {
-    position: absolute;
-    top: 0;
-    left: 1%;
-    color: white;
-    font-weight: bold;
+
+#jatek {
+    display: flex;
+    justify-content: space-between;
 }
+
 #nyertesKep {
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7);
-    position: absolute;
     display: none;
 }
+<<<<<<< HEAD
 #nyertesMenu {
     width: 30vw;
     height: 30vh;
@@ -254,4 +139,9 @@ tr:nth-child(2n) >:nth-child(2n):hover, tr:nth-child(2n+1) >:nth-child(2n+1):hov
     right: 2%;
     border: black 2px solid;
     border-radius: 5px;
+=======
+
+#info {
+    display: none;
+>>>>>>> 296e86d9d1384d1d6b9cf650fc52aab25716a0df
 }
